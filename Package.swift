@@ -6,5 +6,6 @@ let package = Package(
 		Target(name: "Base58", dependencies: ["CBase58"])
 	],
 	dependencies: [
+		.Package(url: "https://github.com/IBM-Swift/BlueCryptor.git", majorVersion: 0)
 	]
 )
