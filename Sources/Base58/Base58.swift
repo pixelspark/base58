@@ -1,8 +1,8 @@
 import CBase58
 import Foundation
 
-extension Data {
-	var base58encoded: String {
+public extension Data {
+	public var base58encoded: String {
 		var mult = 2
 		while true {
 			var enc = Data(repeating: 0, count: self.count * mult)
@@ -29,7 +29,7 @@ extension Data {
 		}
 	}
 
-	static func decode(base58: String) -> Data? {
+	public static func decode(base58: String) -> Data? {
 		let source = base58.data(using: .utf8)!
 
 		var bin = [UInt8](repeating: 8, count: source.count)
