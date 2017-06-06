@@ -14,9 +14,14 @@ public func encryptSHA256(_ digest: UnsafeMutableRawPointer?, _ data: UnsafeRawP
 	return false
 }
 
+// Set the sha256 implementation at initialization time
+let setSHA256Implementation: Void = {
+	b58_sha256_impl = encryptSHA256
+}()
+
 public extension Data {
 	public func base58checkEncoded(version: UInt8) -> String {
-		b58_sha256_impl = encryptSHA256
+		_ = setSHA256Implementation
 		var enc = Data(repeating: 0, count: self.count * 3)
 
 		let s = self.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> String? in
@@ -64,6 +69,7 @@ public extension Data {
 	}
 
 	public static func decodeChecked(base58: String, version: UInt8) -> Data? {
+		_ = setSHA256Implementation
 		let source = base58.data(using: .utf8)!
 
 		var bin = [UInt8](repeating: 0, count: source.count)
