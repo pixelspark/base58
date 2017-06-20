@@ -8,7 +8,7 @@ public func encryptSHA256(_ digest: UnsafeMutableRawPointer?, _ data: UnsafeRawP
 		_ = d.update(from: data, byteCount: size)
 
 		let bytes = d.final()
-		memcpy(digest, bytes, bytes.count)
+		memcpy(digest!, bytes, bytes.count)
 		return true
 	}
 	return false
